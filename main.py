@@ -1,6 +1,6 @@
 import telebot
 
-bot = telebot.TeleBot("7203025819:AAENm_-wMvms1RhTTUJ8zbtMTGc7jvCMzAQ")
+bot = telebot.TeleBot("Your Bot API token")
 
 @bot.message_handler(content_types=['new_chat_members'])
 def newMember (message):
