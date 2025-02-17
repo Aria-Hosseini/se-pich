@@ -1,4 +1,5 @@
 import telebot
+import openai
 
 bot = telebot.TeleBot("Your Bot API token")
 
@@ -108,7 +109,48 @@ def unmute_user(message):
     else:
         bot.send_message(message.chat.id , "⚠️ فقط ادمین ها میتونن اعضا رو از سکوت خارج کنن")
 
-# 
+# حذف پیام 
+@bot.message_handler(func= lambda message : message.text and message.text.strip().lower() in  ["del" , "حذف" , "پاک"])
+def delete_message(message):
+    chat_id = message.chat.id
+    user_id = message.from_user.id
+
+    if check_admins(chat_id , user_id):
+        if message.reply_to_message:
+            bot.delete_message(chat_id, message.reply_to_message.message_id)
+            bot.reply_to(message, "🗑 پیام حذف شد!")
+        else:
+            bot.reply_to(message , "لطفا روی پیامی که میخواهید حذف کنید ریپلای بزنید")
+    else:
+        bot.send_message(message.chat.id , "فقط ادمین ها میتوانند از دستور حذف استفاده کنند")
+
+# قفل کردن گروه
+@bot.message_handler(commands=["lock"])
+def lock_group(message):
+    chat_id = message.chat.id
+    user_id = message.from_user.id
+
+    if check_admins(chat_id , user_id):
+        bot.set_chat_permissions(chat_id, telebot.types.ChatPermissions(can_send_messages=False))
+        bot.send_message(chat_id, "🔒 گروه قفل شد! فقط ادمین‌ها میتونن پیام ارسال کنند.")
+    else:
+        bot.send_message(message.chat.id , "فقط ادمین ها میتونن گروه رو قفل کنن")
+# باز کردن قفل گروه
+@bot.message_handler(commands=["unlock"])
+def unlock_group(message):
+    chat_id = message.chat.id
+    user_id = message.from_user.id
+
+    if check_admins(chat_id , user_id):
+        bot.set_chat_permissions(chat_id, telebot.types.ChatPermissions(can_send_messages=True))
+        bot.send_message(message.chat.id , "قفل گروه باز شد🔓")
+    else:
+        bot.send_message(message.chat.id , "فقط ادمین ها میتونن قفل گروه رو باز کنن")
+
+# تعامل با ربات
+@bot.message_handler(func=lambda message: "سه پیچ" in message.text.lower())
+def reply_to_se_pich(message):
+    bot.reply_to(message , "جونم")
 
 
 bot.polling()
