@@ -1,4 +1,4 @@
-# Telegram Bot
+# Se-Pich Telegram Bot
 
 ## Introduction
 This is a Telegram bot built using the `telebot` library. The bot provides administrative functionalities, such as welcoming new members, pinning/unpinning messages, banning/unbanning users, muting/unmuting members, deleting messages, locking/unlocking the group, and responding to specific keywords.
@@ -42,7 +42,7 @@ This is a Telegram bot built using the `telebot` library. The bot provides admin
 
 ---
 
-# ربات تلگرام
+# ربات تلگرام سه پیچ
 
 ## معرفی
 این ربات تلگرام با استفاده از کتابخانه `telebot` ساخته شده و امکانات مدیریتی مختلفی از جمله خوش‌آمدگویی، پین و آن‌پین پیام‌ها، بن کردن کاربران، سکوت و لغو سکوت، حذف پیام‌ها، قفل و باز کردن گروه و پاسخ به کلمات خاص را ارائه می‌دهد.
